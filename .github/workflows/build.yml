@@ -6,6 +6,7 @@ on:
     paths:
       - 'Containerfile'
       - 'etc/**'
+      - '.github/workflows/**'
   workflow_call:
   workflow_dispatch:
 
