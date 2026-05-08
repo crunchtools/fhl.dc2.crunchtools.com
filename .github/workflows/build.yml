@@ -1,0 +1,54 @@
+name: Build and Push fhl.dc2.crunchtools.com
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Containerfile'
+      - 'etc/**'
+  workflow_call:
+  workflow_dispatch:
+
+env:
+  IMAGE_NAME: quay.io/crunchtools/fh.dc2.crunchtools.com
+  BUILDAH_FORMAT: oci
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free up runner disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache
+          sudo docker image prune --all --force
+          df -h /
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version tag
+        id: version
+        run: |
+          TAG=$(git describe --tags --always 2>/dev/null || echo "v0.1.0")
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to quay.io
+        run: |
+          podman login quay.io \
+            -u '${{ secrets.QUAY_USERNAME }}' \
+            -p '${{ secrets.QUAY_PASSWORD }}'
+
+      - name: Build image with Podman
+        run: |
+          podman build \
+            --tag ${{ env.IMAGE_NAME }}:${{ steps.version.outputs.tag }} \
+            --tag ${{ env.IMAGE_NAME }}:${{ steps.version.outputs.sha_short }} \
+            --tag ${{ env.IMAGE_NAME }}:latest \
+            .
+
+      - name: Push image to Quay.io
+        run: |
+          podman push ${{ env.IMAGE_NAME }}:${{ steps.version.outputs.tag }}
+          podman push ${{ env.IMAGE_NAME }}:${{ steps.version.outputs.sha_short }}
+          podman push ${{ env.IMAGE_NAME }}:latest
