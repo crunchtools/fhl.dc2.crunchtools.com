@@ -24,7 +24,7 @@ Follow Semantic Versioning 2.0.0. MAJOR/MINOR/PATCH.
 
 ## Registry
 
-Published to `quay.io/crunchtools/fh.dc2.crunchtools.com`.
+Published to `quay.io/crunchtools/fhl.dc2.crunchtools.com`.
 
 ## Containerfile Conventions
 

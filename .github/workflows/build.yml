@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: quay.io/crunchtools/fh.dc2.crunchtools.com
+  IMAGE_NAME: quay.io/crunchtools/fhl.dc2.crunchtools.com
   BUILDAH_FORMAT: oci
 
 jobs:
