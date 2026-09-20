@@ -14,6 +14,7 @@ name: Build and Push fhl.dc2.crunchtools.com
 on:
   push:
     branches: [main]
+    tags: ['v*']
     paths:
       - 'Containerfile'
       - 'etc/**'
