@@ -1,9 +1,9 @@
 # fhl.dc2.crunchtools.com Constitution
 
-> **Version:** 1.0.0
+> **Version:** 1.0.1
 > **Ratified:** 2026-05-08
 > **Status:** Active
-> **Inherits:** [crunchtools/constitution](https://github.com/crunchtools/constitution) v1.0.0
+> **Inherits:** [crunchtools/constitution](https://github.com/crunchtools/constitution) v1.17.0
 > **Profile:** Container Image
 
 Fedora Hummingbird bootc VM image for homelab datacenter 2 (breetai). Developer workstation with kernel security testing tools. Primary use case: testing kernel vulnerabilities (Dirty Frag / CVE-2026-43284, CVE-2026-43500) and general development.
