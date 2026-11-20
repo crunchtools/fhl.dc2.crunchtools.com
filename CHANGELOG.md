@@ -6,6 +6,8 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-11-20
+
 ### Fixed
 - The Container workflow no longer carries a `paths:` filter, matching
   `examples/container.yml` and every other image in the fleet. The filter
