@@ -4,16 +4,20 @@
 # A bootc host image: built as a plain OCI manifest, gated by
 # `bootc container lint` against the pushed digest. Hosts follow the tag they
 # were switched to with `bootc switch`; :main moves on merge, :latest on v*.
+#
+# No `paths:` filter, matching examples/container.yml and the rest of the
+# fleet. A filter makes build-once conditional on what a release commit
+# happens to touch: one that misses it leaves the commit ungated, so the v*
+# run rebuilds instead of promoting the bytes already gated on the pull
+# request.
 
 name: Container
 
 on:
   pull_request:
-    paths: ['Containerfile', 'etc/**', '.github/workflows/**']
   push:
     branches: [main]
     tags: ["v*"]
-    paths: ['Containerfile', 'etc/**', '.github/workflows/**']
   schedule:
     - cron: "47 5 * * 1"   # weekly: base-image errata, gated like any build
   workflow_dispatch:
