@@ -6,6 +6,14 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+- The Container workflow no longer carries a `paths:` filter, matching
+  `examples/container.yml` and every other image in the fleet. The filter
+  made build-once conditional on what a release commit happened to touch:
+  `v1.0.1` promoted in 30s only because it bumped workflow refs, which the
+  filter matched. A release that edits nothing but `CHANGELOG.md` would have
+  gone ungated and forced a rebuild, as it does in `rhel10-bootc-server`.
+
 ### Changed
 - Gatehouse triage gets `review_result` from the review job, so a pull request
   whose review died before posting anything is held instead of passing.
