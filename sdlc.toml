@@ -2,4 +2,13 @@
 repo-kinds = ["container-image"]
 # Written by python-sdlc's scripts/convert_repo.py: the image has no checks
 # for these stacks yet, and a stack it cannot check makes every run exit 2.
-skip-stacks = ["bootc"]
+
+[tool.sdlc.image]
+# Written by crunchtools/sdlc's scripts/convert_repo.py: moved from the workflows.
+image = "quay.io/crunchtools/fhl.dc2.crunchtools.com"
+format = "oci"
+outside-image = "VERSION CHANGELOG.md"
+free-disk = true
+boot = "command"
+boot-command = "podman run --rm \"$IMAGE\" bootc container lint"
+boot-timeout = 600
