@@ -7,7 +7,6 @@ repo-kinds = ["container-image"]
 # Written by crunchtools/sdlc's scripts/convert_repo.py: moved from the workflows.
 image = "quay.io/crunchtools/fhl.dc2.crunchtools.com"
 format = "oci"
-outside-image = "VERSION CHANGELOG.md"
 free-disk = true
 # A bootc host image: its PID 1 is systemd on a real host, and sdlc does not
 # enforce boot = "command" (crunchtools/sdlc#118). The old boot-command was
