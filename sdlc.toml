@@ -9,6 +9,9 @@ image = "quay.io/crunchtools/fhl.dc2.crunchtools.com"
 format = "oci"
 outside-image = "VERSION CHANGELOG.md"
 free-disk = true
-boot = "command"
-boot-command = "podman run --rm \"$IMAGE\" bootc container lint"
-boot-timeout = 600
+# A bootc host image: its PID 1 is systemd on a real host, and sdlc does not
+# enforce boot = "command" (crunchtools/sdlc#118). The old boot-command was
+# `bootc container lint`, which sdlc ci's own bootc-lint check runs against this
+# PR's built image, and the Containerfile's last step runs again.
+boot = "none"
+boot-none-reason = "a bootc host image; its boot-command was bootc container lint, which the bootc-lint check in sdlc ci runs against this PR's built image"
