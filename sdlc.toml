@@ -1,5 +1,14 @@
 [tool.sdlc]
 repo-kinds = ["container-image"]
-# Written by python-sdlc's scripts/convert_repo.py: the image has no checks
-# for these stacks yet, and a stack it cannot check makes every run exit 2.
-skip-stacks = ["bootc"]
+
+[tool.sdlc.image]
+# Written by crunchtools/sdlc's scripts/convert_repo.py: moved from the workflows.
+image = "quay.io/crunchtools/fhl.dc2.crunchtools.com"
+format = "oci"
+free-disk = true
+# A bootc host image: its PID 1 is systemd on a real host, and sdlc does not
+# enforce boot = "command" (crunchtools/sdlc#118). The old boot-command was
+# `bootc container lint`, which sdlc ci's own bootc-lint check runs against this
+# PR's built image, and the Containerfile's last step runs again.
+boot = "none"
+boot-none-reason = "a bootc host image; its boot-command was bootc container lint, which the bootc-lint check in sdlc ci runs against this PR's built image"
